@@ -1,28 +1,813 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
+<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Daily Calorie &amp; Macro Calculator - Under maintenance</title>
-<meta name="robots" content="noindex, nofollow">
-<meta name="site-status" content="maintenance">
-<meta name="description" content="This tool is temporarily offline while it is rebuilt.">
+<title>Daily Calorie &amp; Macro Calculator</title>
+<meta name="description" content="Calculate daily calories, BMR, TDEE, and macro targets with Mifflin-St Jeor.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://us-calorie-tracker.enjoy-onepage.com/">
+<meta name="theme-color" content="#0284c7">
+<link rel="icon" href="/favicon.ico">
+<meta property="og:locale" content="en_US">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Daily Calorie &amp; Macro Calculator">
+<meta property="og:title" content="Daily Calorie &amp; Macro Calculator">
+<meta property="og:description" content="Calculate daily calories, BMR, TDEE, and macro targets with Mifflin-St Jeor.">
+<meta property="og:url" content="https://us-calorie-tracker.enjoy-onepage.com/">
+<meta property="og:image" content="https://us-calorie-tracker.enjoy-onepage.com/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Daily Calorie &amp; Macro Calculator">
+<meta name="twitter:description" content="Calculate daily calories, BMR, TDEE, and macro targets with Mifflin-St Jeor.">
+<meta name="twitter:image" content="https://us-calorie-tracker.enjoy-onepage.com/og-image.png">
+<link rel="alternate" type="application/rss+xml" title="Daily Calorie Calculator RSS" href="https://us-calorie-tracker.enjoy-onepage.com/rss.xml">
+<link rel="sitemap" type="application/xml" href="https://us-calorie-tracker.enjoy-onepage.com/sitemap.xml">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebApplication",
+      "@id": "https://us-calorie-tracker.enjoy-onepage.com/#webapp",
+      "name": "Daily Calorie & Macro Calculator",
+      "url": "https://us-calorie-tracker.enjoy-onepage.com/",
+      "applicationCategory": "HealthApplication",
+      "operatingSystem": "All",
+      "inLanguage": "en",
+      "description": "An interactive clinical nutrition tool calculating BMR and TDEE using the Mifflin-St Jeor equation, personalized macronutrient gram distributions, and local daily meal logging.",
+      "image": "https://us-calorie-tracker.enjoy-onepage.com/og-image.png",
+      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://us-calorie-tracker.enjoy-onepage.com/#faq",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What is the difference between BMR and TDEE?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Basal Metabolic Rate (BMR) is the baseline caloric energy expended by your vital organs at complete physical and digestive rest. Total Daily Energy Expenditure (TDEE) factors in physical activity and non-exercise thermogenesis to determine total daily caloric maintenance."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How accurate is the Mifflin-St Jeor formula?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The Mifflin-St Jeor equation is recognized by the Academy of Nutrition and Dietetics as the most reliable non-laboratory predictive equation for resting metabolic rate in healthy adults, typically predicting within 10% of indirect calorimetry."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How are macronutrient grams calculated?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Protein and carbohydrates provide 4 calories per gram, while dietary fats provide 9 calories per gram. The calculator multiplies your daily caloric target by each nutrient's percentage and divides by the respective caloric density."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Are my dietary entries or body measurements saved online?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. All metabolic formulas and food log records run exclusively on your browser device. Zero personal biometrics or food records are transferred or stored on remote servers."
+          }
+        }
+      ]
+    }
+  ]
+}
+</script>
+<!-- ADSENSE START: loader -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2228289204702106" crossorigin="anonymous"></script>
+<!-- ADSENSE END: loader -->
 <style>
-  body { margin: 0; font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; background: #f8fafc; color: #0f172a; }
-  main { max-width: 560px; margin: 12vh auto; padding: 32px 24px; background: #ffffff; border: 1px solid #e2e8f0; border-radius: 16px; }
-  h1 { font-size: 1.4rem; margin: 0 0 12px; }
-  p { line-height: 1.6; color: #334155; }
-  a { color: #1d4ed8; font-weight: 600; }
-  .tag { display: inline-block; font-size: .8rem; font-weight: 700; color: #92400e; background: #fef3c7; border-radius: 999px; padding: 4px 10px; margin-bottom: 14px; }
+:root{--bg:#f0f9ff;--card:#fff;--ink:#0f172a;--muted:#475569;--accent:#0284c7;--accent-hover:#0369a1;--line:#e0f2fe;--p-color:#16a34a;--c-color:#d97706;--f-color:#9333ea}
+*{box-sizing:border-box}
+html,body{margin:0;max-width:100%;overflow-x:hidden}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;background:var(--bg);color:var(--ink);line-height:1.6;overflow-wrap:anywhere}
+.header{background:linear-gradient(135deg,#0369a1,#0284c7);color:#fff;text-align:center;padding:26px 16px 22px}
+.header h1{margin:0;font-size:1.7rem}
+.header-sub{opacity:.92;margin-top:6px;font-size:.95rem}
+.wrap{max-width:1100px;margin:0 auto;padding:12px 14px 8px}
+.grid2{display:grid;grid-template-columns:1fr;gap:14px}
+@media (min-width:1024px){.grid2{grid-template-columns:5fr 7fr;align-items:start}.sticky-col{position:sticky;top:12px}}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:14px 18px;margin:14px 0}
+.grid2 .card{margin:0}
+.card h2{font-size:1.15rem;margin:4px 0 10px}
+.lbl{display:block;font-weight:600;margin:8px 0 4px;font-size:.92rem}
+input[type=text],input[type=number],select{width:100%;font:inherit;font-size:1rem;padding:8px 10px;border:1px solid #cbd5e1;border-radius:10px;background:#fff;color:var(--ink)}
+.row{display:flex;gap:10px;flex-wrap:wrap}
+.row>div{flex:1 1 120px;min-width:0}
+.btn{font:inherit;border:1px solid #cbd5e1;background:#fff;color:var(--ink);border-radius:10px;padding:8px 13px;cursor:pointer;transition:background .15s}
+.btn:hover{background:#f8fafc}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:#fff;font-weight:700}
+.btn.primary:hover{background:var(--accent-hover)}
+.btn.sm{padding:4px 10px;font-size:.86rem;border-radius:8px}
+.btn-group{display:flex;gap:6px;margin-bottom:8px}
+.btn-toggle{flex:1;text-align:center;padding:7px;border:1px solid #cbd5e1;background:#f8fafc;border-radius:8px;cursor:pointer;font-size:.9rem;font-weight:600}
+.btn-toggle.active{background:var(--accent);color:#fff;border-color:var(--accent)}
+.actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+.metric-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:12px 0}
+@media (max-width:600px){.metric-grid{grid-template-columns:1fr}}
+.metric-box{background:#f0f9ff;border:1px solid #bae6fd;border-radius:12px;padding:12px}
+.metric-val{font-size:1.55rem;font-weight:800;color:var(--accent);margin:2px 0}
+.metric-lbl{font-size:.82rem;color:var(--muted);font-weight:600;text-transform:uppercase}
+.macro-bar-container{margin:14px 0 10px}
+.macro-bar{display:flex;height:16px;border-radius:8px;overflow:hidden;background:#e2e8f0}
+.macro-seg{height:100%;transition:width .2s}
+.macro-seg.protein{background:var(--p-color)}
+.macro-seg.carbs{background:var(--c-color)}
+.macro-seg.fat{background:var(--f-color)}
+.macro-legend{display:flex;justify-content:space-between;font-size:.84rem;font-weight:600;margin-top:6px}
+.macro-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:12px 0}
+@media (max-width:540px){.macro-grid{grid-template-columns:1fr}}
+.macro-card{border-radius:10px;padding:10px;text-align:center}
+.macro-card.p{background:#f0fdf4;border:1px solid #bbf7d0;color:#166534}
+.macro-card.c{background:#fffbeb;border:1px solid #fde68a;color:#92400e}
+.macro-card.f{background:#faf5ff;border:1px solid #e9d5ff;color:#6b21a8}
+.macro-num{font-size:1.35rem;font-weight:800;margin:2px 0}
+.macro-sub{font-size:.8rem;opacity:.9}
+.meal-list{list-style:none;padding:0;margin:10px 0}
+.meal-item{display:flex;justify-content:space-between;align-items:center;padding:7px 10px;border-bottom:1px solid #f1f5f9;font-size:.88rem}
+.meal-item:last-child{border-bottom:none}
+.log-table{width:100%;border-collapse:collapse;font-size:.86rem;margin-top:10px}
+.log-table th,.log-table td{padding:6px 8px;border-bottom:1px solid #f1f5f9;text-align:left}
+.log-table th{background:#f8fafc;color:var(--muted)}
+.del-btn{color:#dc2626;background:none;border:none;cursor:pointer;font-weight:bold;padding:0 4px}
+.quick-chip{display:inline-block;padding:4px 8px;background:#e0f2fe;color:#0369a1;border-radius:6px;font-size:.8rem;cursor:pointer;margin:2px;font-weight:600}
+.quick-chip:hover{background:#bae6fd}
+.hint{font-size:.86rem;color:var(--muted);margin:6px 0}
+.notice{border-color:#fcd34d;background:#fffbeb}
+.faq-item h3{font-size:1rem;margin:12px 0 4px}
+.faq-item p{margin:0;color:#334155}
+.src{font-size:.82rem;color:var(--muted)}
+.ad-box{max-width:1100px;margin:10px auto;padding:0 14px;background:transparent;overflow:hidden;text-align:center}
+.ad-top ins{max-height:90px}
+.footer{text-align:center;font-size:.85rem;color:var(--muted);padding:18px 14px 28px}
+.footer a{color:var(--muted);text-decoration:none}
+.footer a:hover{text-decoration:underline}
+.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:#0f172a;color:#fff;padding:10px 18px;border-radius:999px;font-size:.9rem;opacity:0;pointer-events:none;transition:opacity .2s;z-index:50;max-width:90vw}
+.toast.show{opacity:1}
+@media (prefers-reduced-motion: reduce){.toast{transition:none}}
 </style>
 </head>
 <body>
-<main>
-  <span class="tag">Under maintenance</span>
+<header class="header">
   <h1>Daily Calorie &amp; Macro Calculator</h1>
-  <p>This tool is temporarily offline. We found that the previous version did not work the way it was described, so we took it down while we rebuild it properly.</p>
-  <p>Please check back later.</p>
-  <p><a href="https://enjoy-onepage.com/">Browse our other free tools</a></p>
+  <div class="header-sub">Mifflin-St Jeor BMR &amp; TDEE Energy Targets · Clinical Macro Splits · 100% In-Browser</div>
+</header>
+
+<!-- ADSENSE START: top -->
+<div class="ad-box ad-top">
+  <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-2228289204702106" data-ad-slot="3824727725" data-ad-format="horizontal" data-full-width-responsive="true"></ins>
+  <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<!-- ADSENSE END: top -->
+
+<main class="wrap">
+  <div class="grid2">
+    <!-- Input Card -->
+    <section class="card" aria-labelledby="calc-params-h">
+      <h2 id="calc-params-h">⚙️ Personal Biometrics &amp; Goals</h2>
+
+      <label class="lbl">Measurement System</label>
+      <div class="btn-group" role="radiogroup" aria-label="Units">
+        <button type="button" id="btnUnitImp" class="btn-toggle active" aria-checked="true" role="radio">US Standard (lbs, ft/in)</button>
+        <button type="button" id="btnUnitMet" class="btn-toggle" aria-checked="false" role="radio">Metric (kg, cm)</button>
+      </div>
+
+      <label class="lbl">Biological Sex</label>
+      <div class="btn-group" role="radiogroup" aria-label="Biological Sex">
+        <button type="button" id="btnSexMale" class="btn-toggle active" aria-checked="true" role="radio">Male</button>
+        <button type="button" id="btnSexFemale" class="btn-toggle" aria-checked="false" role="radio">Female</button>
+      </div>
+
+      <div class="row">
+        <div>
+          <label class="lbl" for="ageInput">Age (years)</label>
+          <input type="number" id="ageInput" min="15" max="100" value="30">
+        </div>
+      </div>
+
+      <!-- Height Controls -->
+      <div id="impHeightRow" class="row">
+        <div>
+          <label class="lbl" for="heightFt">Height (Feet)</label>
+          <input type="number" id="heightFt" min="3" max="7" value="5">
+        </div>
+        <div>
+          <label class="lbl" for="heightIn">Height (Inches)</label>
+          <input type="number" id="heightIn" min="0" max="11" value="10">
+        </div>
+      </div>
+      <div id="metHeightRow" class="row" style="display:none">
+        <div>
+          <label class="lbl" for="heightCm">Height (Centimeters)</label>
+          <input type="number" id="heightCm" min="100" max="230" value="178">
+        </div>
+      </div>
+
+      <!-- Weight Controls -->
+      <div id="impWeightRow" class="row">
+        <div>
+          <label class="lbl" for="weightLbs">Weight (Pounds)</label>
+          <input type="number" id="weightLbs" min="60" max="500" value="165" step="0.5">
+        </div>
+      </div>
+      <div id="metWeightRow" class="row" style="display:none">
+        <div>
+          <label class="lbl" for="weightKg">Weight (Kilograms)</label>
+          <input type="number" id="weightKg" min="30" max="250" value="75" step="0.5">
+        </div>
+      </div>
+
+      <label class="lbl" for="activityLevel">Daily Activity Level</label>
+      <select id="activityLevel">
+        <option value="1.2">Sedentary (Desk job, minimal planned exercise)</option>
+        <option value="1.375" selected>Lightly Active (Light workout or sports 1-3 days/wk)</option>
+        <option value="1.55">Moderately Active (Moderate training 3-5 days/wk)</option>
+        <option value="1.725">Very Active (Hard exercise or training 6-7 days/wk)</option>
+        <option value="1.9">Extra Active (Intensive sports or labor job twice daily)</option>
+      </select>
+
+      <label class="lbl" for="fitnessGoal">Caloric &amp; Body Composition Goal</label>
+      <select id="fitnessGoal">
+        <option value="0">Weight Maintenance (0 kcal)</option>
+        <option value="-250">Mild Fat Loss (-250 kcal/day · ~0.5 lb/week)</option>
+        <option value="-500" selected>Standard Fat Loss (-500 kcal/day · ~1.0 lb/week)</option>
+        <option value="-750">Aggressive Fat Loss (-750 kcal/day · ~1.5 lb/week)</option>
+        <option value="250">Lean Bulking / Muscle Building (+250 kcal/day)</option>
+        <option value="500">Weight Gain / Powerlifting (+500 kcal/day)</option>
+      </select>
+
+      <label class="lbl" for="macroPreset">Macronutrient Distribution</label>
+      <select id="macroPreset">
+        <option value="balanced" selected>Balanced Dietary Guideline (40% Carbs / 30% Protein / 30% Fat)</option>
+        <option value="high-protein">High Protein / Athlete (35% Carbs / 40% Protein / 25% Fat)</option>
+        <option value="low-carb">Low Carbohydrate (20% Carbs / 40% Protein / 40% Fat)</option>
+        <option value="keto">Ketogenic Standard (5% Carbs / 25% Protein / 70% Fat)</option>
+        <option value="endurance">Endurance &amp; Plant-Rich (55% Carbs / 25% Protein / 20% Fat)</option>
+      </select>
+
+      <div class="actions">
+        <button type="button" id="btnCalculate" class="btn primary">Recalculate Energy Targets</button>
+        <button type="button" id="btnReset" class="btn">Reset to Standard</button>
+      </div>
+      <p class="hint">Equations update live on all inputs. Biometrics remain entirely local.</p>
+    </section>
+
+    <!-- Results & Log Card -->
+    <section class="card" aria-labelledby="results-h">
+      <h2 id="results-h">📊 Metabolic Rates &amp; Macro Targets</h2>
+
+        <div class="metric-grid">
+          <div class="metric-box">
+            <div class="metric-lbl">Daily Target Calories</div>
+            <div id="resTargetCal" class="metric-val">2,025 kcal</div>
+            <div id="resGoalSub" class="hint" style="margin:0">-500 kcal deficit (1.0 lb/wk)</div>
+          </div>
+          <div class="metric-box">
+            <div class="metric-lbl">Total Energy Expenditure (TDEE)</div>
+            <div id="resTDEE" class="metric-val">2,525 kcal</div>
+            <div id="resBMRSub" class="hint" style="margin:0">Basal BMR: 1,836 kcal/day</div>
+          </div>
+        </div>
+
+        <div class="macro-bar-container">
+          <div class="macro-bar">
+            <div id="barProtein" class="macro-seg protein" style="width:30%" title="Protein"></div>
+            <div id="barCarbs" class="macro-seg carbs" style="width:40%" title="Carbs"></div>
+            <div id="barFat" class="macro-seg fat" style="width:30%" title="Fat"></div>
+          </div>
+          <div class="macro-legend">
+            <span style="color:var(--p-color)">● Protein <strong id="lblPctP">30%</strong></span>
+            <span style="color:var(--c-color)">● Carbs <strong id="lblPctC">40%</strong></span>
+            <span style="color:var(--f-color)">● Fat <strong id="lblPctF">30%</strong></span>
+          </div>
+        </div>
+
+        <div class="macro-grid">
+          <div class="macro-card p">
+            <div class="macro-sub">PROTEIN</div>
+            <div id="resGramsP" class="macro-num">152g</div>
+            <div id="resCalsP" class="macro-sub">608 kcal</div>
+          </div>
+          <div class="macro-card c">
+            <div class="macro-sub">CARBS</div>
+            <div id="resGramsC" class="macro-num">203g</div>
+            <div id="resCalsC" class="macro-sub">810 kcal</div>
+          </div>
+          <div class="macro-card f">
+            <div class="macro-sub">FAT</div>
+            <div id="resGramsF" class="macro-num">68g</div>
+            <div id="resCalsF" class="macro-sub">608 kcal</div>
+          </div>
+        </div>
+
+        <label class="lbl" style="margin-top:14px">Ideal Meal Schedule Distribution</label>
+        <ul class="meal-list">
+          <li class="meal-item">
+            <span><strong>Breakfast (25%):</strong> <span id="mBreakfastCal">506 kcal</span></span>
+            <span class="src" id="mBreakfastMacro">38g P · 51g C · 17g F</span>
+          </li>
+          <li class="meal-item">
+            <span><strong>Lunch (35%):</strong> <span id="mLunchCal">709 kcal</span></span>
+            <span class="src" id="mLunchMacro">53g P · 71g C · 24g F</span>
+          </li>
+          <li class="meal-item">
+            <span><strong>Dinner (30%):</strong> <span id="mDinnerCal">608 kcal</span></span>
+            <span class="src" id="mDinnerMacro">46g P · 61g C · 20g F</span>
+          </li>
+          <li class="meal-item">
+            <span><strong>Snack (10%):</strong> <span id="mSnackCal">203 kcal</span></span>
+            <span class="src" id="mSnackMacro">15g P · 20g C · 7g F</span>
+          </li>
+        </ul>
+
+        </div>
+
+        <!-- Local Meal Logger Section -->
+        <div style="margin-top:20px;border-top:1px solid var(--line);padding-top:14px">
+          <h2 id="tracker-h">🥗 Quick Daily Food &amp; Intake Tracker</h2>
+          <p class="hint">Log foods locally to monitor daily calories and macronutrient totals against your target.</p>
+
+        <label class="lbl">Quick Presets (USDA standard portions)</label>
+        <div>
+          <span class="quick-chip" data-name="Chicken Breast 6oz" data-cal="280" data-p="53" data-c="0" data-f="6">+ Chicken Breast (6oz)</span>
+          <span class="quick-chip" data-name="Oatmeal (1 cup cooked)" data-cal="166" data-p="6" data-c="28" data-f="4">+ Oatmeal (1 cup)</span>
+          <span class="quick-chip" data-name="Large Eggs (2)" data-cal="144" data-p="12" data-c="1" data-f="10">+ Eggs (2 large)</span>
+          <span class="quick-chip" data-name="Greek Yogurt (1 cup)" data-cal="130" data-p="22" data-c="8" data-f="0">+ Greek Yogurt (1 cup)</span>
+          <span class="quick-chip" data-name="Whey Protein Scoop" data-cal="120" data-p="24" data-c="2" data-f="2">+ Whey Scoop (1 scoop)</span>
+          <span class="quick-chip" data-name="Brown Rice (1 cup)" data-cal="218" data-p="5" data-c="46" data-f="2">+ Brown Rice (1 cup)</span>
+          <span class="quick-chip" data-name="Avocado (Half)" data-cal="160" data-p="2" data-c="9" data-f="15">+ Avocado (1/2)</span>
+        </div>
+
+        <div class="row" style="margin-top:10px">
+          <div style="flex:2 1 140px">
+            <input type="text" id="foodNameInput" placeholder="Custom food or item name">
+          </div>
+          <div>
+            <input type="number" id="foodCalInput" placeholder="Calories" min="0">
+          </div>
+        </div>
+        <div class="row" style="margin-top:6px">
+          <div>
+            <input type="number" id="foodPInput" placeholder="Protein (g)" min="0">
+          </div>
+          <div>
+            <input type="number" id="foodCInput" placeholder="Carbs (g)" min="0">
+          </div>
+          <div>
+            <input type="number" id="foodFInput" placeholder="Fat (g)" min="0">
+          </div>
+          <div style="flex:0 0 auto">
+            <button type="button" id="btnAddFood" class="btn primary sm" style="height:38px">+ Add</button>
+          </div>
+        </div>
+
+        <table class="log-table" aria-label="Daily logged food list">
+          <thead>
+            <tr>
+              <th>Food Item</th>
+              <th>Calories</th>
+              <th>P / C / F</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody id="foodLogBody">
+            <tr><td colspan="4" style="text-align:center;color:var(--muted)">No meals logged yet today. Click presets above or add custom items.</td></tr>
+          </tbody>
+          <tfoot>
+            <tr style="font-weight:700;border-top:2px solid #cbd5e1">
+              <td>Total Logged</td>
+              <td id="totLogCal">0 kcal</td>
+              <td id="totLogMacros">0g P / 0g C / 0g F</td>
+              <td><button type="button" id="btnClearLog" class="btn sm" style="padding:2px 6px">Clear</button></td>
+            </tr>
+          </tfoot>
+        </table>
+        <div id="logProgressMsg" class="hint" style="margin-top:8px">Remaining budget: <strong id="remCalBudget">2,025 kcal</strong></div>
+        </div>
+      </section>
+  </div>
+
+  <!-- ADSENSE START: mid -->
+  <div class="ad-box ad-mid">
+    <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-2228289204702106" data-ad-slot="1186914926" data-ad-format="rectangle" data-full-width-responsive="true"></ins>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+  </div>
+  <!-- ADSENSE END: mid -->
+
+  <!-- Educational Guide -->
+  <section class="card" aria-labelledby="guide-h">
+    <h2 id="guide-h">📖 Clinical Methodology: The Mifflin-St Jeor Equation</h2>
+    <p>Daily metabolic energy expenditure is determined using the validated Mifflin-St Jeor formula, widely endorsed across clinical and athletic dietetics literature (Mifflin et al., <em>American Journal of Clinical Nutrition</em>):</p>
+    <ul>
+      <li><strong>Men:</strong> BMR = (10 × weight in kg) + (6.25 × height in cm) - (5 × age) + 5</li>
+      <li><strong>Women:</strong> BMR = (10 × weight in kg) + (6.25 × height in cm) - (5 × age) - 161</li>
+    </ul>
+    <p>Total Daily Energy Expenditure (TDEE) multiplies your BMR by your physical activity multiplier (1.2 to 1.9). Calorie targets are adjusted according to your rate of fat loss or muscle gain, while preserving essential hormonal function.</p>
+    <p class="src">Clinical references: Academy of Nutrition and Dietetics Evidence Analysis Library; Dietary Guidelines for Americans (USDA &amp; HHS); ISSN Position Stand: Diets &amp; Body Composition.</p>
+  </section>
+
+  <section class="card" id="faq" aria-labelledby="faq-h">
+    <h2 id="faq-h">❓ Frequently Asked Questions</h2>
+    <div class="faq-item"><h3>What is the difference between BMR and TDEE?</h3><p>Basal Metabolic Rate (BMR) is the baseline caloric energy expended by your vital organs at complete physical and digestive rest. Total Daily Energy Expenditure (TDEE) factors in physical activity and non-exercise thermogenesis to determine total daily caloric maintenance.</p></div>
+    <div class="faq-item"><h3>How accurate is the Mifflin-St Jeor formula?</h3><p>The Mifflin-St Jeor equation is recognized by the Academy of Nutrition and Dietetics as the most reliable non-laboratory predictive equation for resting metabolic rate in healthy adults, typically predicting within 10% of indirect calorimetry.</p></div>
+    <div class="faq-item"><h3>How are macronutrient grams calculated?</h3><p>Protein and carbohydrates provide 4 calories per gram, while dietary fats provide 9 calories per gram. The calculator multiplies your daily caloric target by each nutrient's percentage and divides by the respective caloric density.</p></div>
+    <div class="faq-item"><h3>Are my dietary entries or body measurements saved online?</h3><p>No. All metabolic formulas and food log records run exclusively on your browser device. Zero personal biometrics or food records are transferred or stored on remote servers.</p></div>
+  </section>
+
+  <section class="card notice" aria-labelledby="note-h">
+    <h2 id="note-h">⚠️ Medical &amp; Dietary Disclaimer</h2>
+    <p>This calculator provides evidence-based estimates for informational and educational purposes only. Caloric requirements differ based on body composition, medical conditions, medications, and thyroid health. Individuals with medical conditions or pregnant/nursing mothers should consult a registered dietitian or licensed physician before initiating substantial caloric deficits.</p>
+  </section>
 </main>
+
+<!-- ADSENSE START: bottom -->
+<div class="ad-box ad-bottom">
+  <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-2228289204702106" data-ad-slot="3416334507" data-ad-format="auto" data-full-width-responsive="true"></ins>
+  <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<!-- ADSENSE END: bottom -->
+
+<footer class="footer">
+  <p>Free Daily Calorie &amp; Macro Calculator · 100% private and client-side.</p>
+  <p><a href="/disclaimer.html">Disclaimer</a> | <a href="/privacy.html">Privacy Policy</a> | <a href="/terms.html">Terms of Service</a></p>
+</footer>
+
+<div id="global-ux-toast" class="toast" role="status" aria-live="polite"></div>
+
+<!-- LOGIC START -->
+<script>
+(function () {
+  'use strict';
+  var SITE = 'https://us-calorie-tracker.enjoy-onepage.com';
+  var TOOL_NAME = 'Daily Calorie & Macro Calculator';
+  var STORAGE_KEY = 'us_calorie_tracker_log';
+
+  var isMetric = false;
+  var sex = 'male';
+  var foodLog = [];
+
+  function $(id) { return document.getElementById(id); }
+
+  function showToast(msg) {
+    var toast = $('global-ux-toast');
+    if (!toast) return;
+    toast.textContent = msg;
+    toast.classList.add('show');
+    clearTimeout(toast._tid);
+    toast._tid = setTimeout(function () { toast.classList.remove('show'); }, 2200);
+  }
+
+  function setUnit(metric) {
+    isMetric = metric;
+    $('btnUnitImp').classList.toggle('active', !metric);
+    $('btnUnitImp').setAttribute('aria-checked', !metric);
+    $('btnUnitMet').classList.toggle('active', metric);
+    $('btnUnitMet').setAttribute('aria-checked', metric);
+
+    $('impHeightRow').style.display = metric ? 'none' : 'flex';
+    $('metHeightRow').style.display = metric ? 'flex' : 'none';
+    $('impWeightRow').style.display = metric ? 'none' : 'flex';
+    $('metWeightRow').style.display = metric ? 'flex' : 'none';
+
+    // Synchronize values if switching
+    if (metric) {
+      var ft = parseFloat($('heightFt').value) || 5;
+      var inch = parseFloat($('heightIn').value) || 10;
+      var lbs = parseFloat($('weightLbs').value) || 165;
+      $('heightCm').value = Math.round((ft * 12 + inch) * 2.54);
+      $('weightKg').value = (lbs * 0.453592).toFixed(1);
+    } else {
+      var cm = parseFloat($('heightCm').value) || 178;
+      var kg = parseFloat($('weightKg').value) || 75;
+      var totalInches = cm / 2.54;
+      $('heightFt').value = Math.floor(totalInches / 12);
+      $('heightIn').value = Math.round(totalInches % 12);
+      $('weightLbs').value = (kg * 2.20462).toFixed(1);
+    }
+    calculate();
+  }
+
+  function setSex(s) {
+    sex = s;
+    $('btnSexMale').classList.toggle('active', s === 'male');
+    $('btnSexMale').setAttribute('aria-checked', s === 'male');
+    $('btnSexFemale').classList.toggle('active', s === 'female');
+    $('btnSexFemale').setAttribute('aria-checked', s === 'female');
+    calculate();
+  }
+
+  var MACRO_PRESETS = {
+    'balanced': { p: 0.30, c: 0.40, f: 0.30, name: 'Balanced (40C/30P/30F)' },
+    'high-protein': { p: 0.40, c: 0.35, f: 0.25, name: 'High Protein (35C/40P/25F)' },
+    'low-carb': { p: 0.40, c: 0.20, f: 0.40, name: 'Low Carb (20C/40P/40F)' },
+    'keto': { p: 0.25, c: 0.05, f: 0.70, name: 'Keto (5C/25P/70F)' },
+    'endurance': { p: 0.25, c: 0.55, f: 0.20, name: 'Endurance (55C/25P/20F)' }
+  };
+
+  var lastCalc = {};
+
+  function calculate() {
+    var age = parseInt($('ageInput').value, 10) || 30;
+    var weightKg, heightCm;
+
+    if (isMetric) {
+      weightKg = parseFloat($('weightKg').value) || 75;
+      heightCm = parseFloat($('heightCm').value) || 178;
+    } else {
+      var ft = parseFloat($('heightFt').value) || 5;
+      var inch = parseFloat($('heightIn').value) || 10;
+      var lbs = parseFloat($('weightLbs').value) || 165;
+      heightCm = (ft * 12 + inch) * 2.54;
+      weightKg = lbs * 0.453592;
+    }
+
+    // Mifflin-St Jeor equation
+    var bmr = (10 * weightKg) + (6.25 * heightCm) - (5 * age);
+    if (sex === 'male') {
+      bmr += 5;
+    } else {
+      bmr -= 161;
+    }
+
+    var activity = parseFloat($('activityLevel').value) || 1.375;
+    var tdee = bmr * activity;
+
+    var goalOffset = parseInt($('fitnessGoal').value, 10) || 0;
+    var targetCal = Math.round(tdee + goalOffset);
+
+    // Floor protection
+    var minSafe = (sex === 'male') ? 1500 : 1200;
+    if (targetCal < minSafe) targetCal = minSafe;
+
+    var macroPresetKey = $('macroPreset').value;
+    var preset = MACRO_PRESETS[macroPresetKey] || MACRO_PRESETS['balanced'];
+
+    var calP = Math.round(targetCal * preset.p);
+    var calC = Math.round(targetCal * preset.c);
+    var calF = Math.round(targetCal * preset.f);
+
+    var gramsP = Math.round(calP / 4);
+    var gramsC = Math.round(calC / 4);
+    var gramsF = Math.round(calF / 9);
+
+    // Update UI
+    $('resTargetCal').textContent = targetCal.toLocaleString() + ' kcal';
+    $('resTDEE').textContent = Math.round(tdee).toLocaleString() + ' kcal';
+    $('resBMRSub').textContent = 'Basal BMR: ' + Math.round(bmr).toLocaleString() + ' kcal/day';
+
+    var goalText = (goalOffset === 0) ? 'Maintenance intake' :
+      (goalOffset < 0 ? (goalOffset + ' kcal deficit (' + (Math.abs(goalOffset * 7) / 3500).toFixed(1) + ' lb/wk)') :
+      ('+' + goalOffset + ' kcal surplus (~' + ((goalOffset * 7) / 3500).toFixed(1) + ' lb/wk)'));
+    $('resGoalSub').textContent = goalText;
+
+    var pctP = Math.round(preset.p * 100);
+    var pctC = Math.round(preset.c * 100);
+    var pctF = Math.round(preset.f * 100);
+
+    $('lblPctP').textContent = pctP + '%';
+    $('lblPctC').textContent = pctC + '%';
+    $('lblPctF').textContent = pctF + '%';
+
+    $('barProtein').style.width = pctP + '%';
+    $('barCarbs').style.width = pctC + '%';
+    $('barFat').style.width = pctF + '%';
+
+    $('resGramsP').textContent = gramsP + 'g';
+    $('resCalsP').textContent = calP + ' kcal';
+
+    $('resGramsC').textContent = gramsC + 'g';
+    $('resCalsC').textContent = calC + ' kcal';
+
+    $('resGramsF').textContent = gramsF + 'g';
+    $('resCalsF').textContent = calF + ' kcal';
+
+    // Meals (25% / 35% / 30% / 10%)
+    function setMeal(prefix, pct) {
+      var mCal = Math.round(targetCal * pct);
+      var mP = Math.round(gramsP * pct);
+      var mC = Math.round(gramsC * pct);
+      var mF = Math.round(gramsF * pct);
+      $(prefix + 'Cal').textContent = mCal + ' kcal';
+      $(prefix + 'Macro').textContent = mP + 'g P · ' + mC + 'g C · ' + mF + 'g F';
+    }
+    setMeal('mBreakfast', 0.25);
+    setMeal('mLunch', 0.35);
+    setMeal('mDinner', 0.30);
+    setMeal('mSnack', 0.10);
+
+    lastCalc = {
+      targetCal: targetCal,
+      tdee: Math.round(tdee),
+      bmr: Math.round(bmr),
+      gramsP: gramsP,
+      gramsC: gramsC,
+      gramsF: gramsF,
+      pctP: pctP,
+      pctC: pctC,
+      pctF: pctF,
+      presetName: preset.name
+    };
+
+    updateLogSummary();
+  }
+
+  function loadLog() {
+    try {
+      var data = localStorage.getItem(STORAGE_KEY);
+      if (data) foodLog = JSON.parse(data);
+    } catch (e) { foodLog = []; }
+    renderLog();
+  }
+
+  function saveLog() {
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(foodLog));
+    } catch (e) {}
+    renderLog();
+  }
+
+  function renderLog() {
+    var tbody = $('foodLogBody');
+    if (!tbody) return;
+
+    if (!foodLog || foodLog.length === 0) {
+      tbody.innerHTML = '<tr><td colspan="4" style="text-align:center;color:var(--muted)">No meals logged yet today. Click presets above or add custom items.</td></tr>';
+    } else {
+      tbody.innerHTML = '';
+      foodLog.forEach(function (item, idx) {
+        var tr = document.createElement('tr');
+        tr.innerHTML = '<td>' + escapeHtml(item.name) + '</td>' +
+          '<td>' + item.cal + ' kcal</td>' +
+          '<td>' + item.p + 'g P / ' + item.c + 'g C / ' + item.f + 'g F</td>' +
+          '<td><button type="button" class="del-btn" data-idx="' + idx + '" title="Remove item">&times;</button></td>';
+        tbody.appendChild(tr);
+      });
+
+      var delBtns = tbody.querySelectorAll('.del-btn');
+      delBtns.forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          var index = parseInt(this.getAttribute('data-idx'), 10);
+          foodLog.splice(index, 1);
+          saveLog();
+          showToast('Item removed');
+        });
+      });
+    }
+
+    updateLogSummary();
+  }
+
+  function updateLogSummary() {
+    var totCal = 0, totP = 0, totC = 0, totF = 0;
+    foodLog.forEach(function (item) {
+      totCal += Number(item.cal) || 0;
+      totP += Number(item.p) || 0;
+      totC += Number(item.c) || 0;
+      totF += Number(item.f) || 0;
+    });
+
+    $('totLogCal').textContent = totCal + ' kcal';
+    $('totLogMacros').textContent = totP + 'g P / ' + totC + 'g C / ' + totF + 'g F';
+
+    var target = lastCalc.targetCal || 2025;
+    var rem = target - totCal;
+    var remEl = $('remCalBudget');
+    if (rem >= 0) {
+      remEl.textContent = rem.toLocaleString() + ' kcal remaining';
+      remEl.style.color = 'var(--accent)';
+    } else {
+      remEl.textContent = '+' + Math.abs(rem).toLocaleString() + ' kcal over target';
+      remEl.style.color = '#dc2626';
+    }
+  }
+
+  function escapeHtml(str) {
+    return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+  }
+
+  function addFoodItem(name, cal, p, c, f) {
+    if (!name || isNaN(cal)) {
+      showToast('Please enter a valid food name and calories.');
+      return;
+    }
+    foodLog.push({
+      name: name,
+      cal: Math.round(Number(cal)),
+      p: Math.round(Number(p) || 0),
+      c: Math.round(Number(c) || 0),
+      f: Math.round(Number(f) || 0)
+    });
+    saveLog();
+    showToast('Added ' + name);
+  }
+
+  // Event handlers
+  $('btnUnitImp').addEventListener('click', function () { setUnit(false); });
+  $('btnUnitMet').addEventListener('click', function () { setUnit(true); });
+  $('btnSexMale').addEventListener('click', function () { setSex('male'); });
+  $('btnSexFemale').addEventListener('click', function () { setSex('female'); });
+
+  ['ageInput', 'heightFt', 'heightIn', 'heightCm', 'weightLbs', 'weightKg', 'activityLevel', 'fitnessGoal', 'macroPreset'].forEach(function (id) {
+    var el = $(id);
+    if (el) {
+      el.addEventListener('input', calculate);
+      el.addEventListener('change', calculate);
+    }
+  });
+
+  $('btnCalculate').addEventListener('click', function () {
+    calculate();
+    showToast('Metabolic rates & macros recalculated');
+  });
+
+  $('btnReset').addEventListener('click', function () {
+    setUnit(false);
+    setSex('male');
+    $('ageInput').value = '30';
+    $('heightFt').value = '5';
+    $('heightIn').value = '10';
+    $('weightLbs').value = '165';
+    $('activityLevel').value = '1.375';
+    $('fitnessGoal').value = '-500';
+    $('macroPreset').value = 'balanced';
+    calculate();
+    showToast('Reset to standard biometrics');
+  });
+
+  // Food log events
+  document.querySelectorAll('.quick-chip').forEach(function (chip) {
+    chip.addEventListener('click', function () {
+      addFoodItem(
+        this.getAttribute('data-name'),
+        this.getAttribute('data-cal'),
+        this.getAttribute('data-p'),
+        this.getAttribute('data-c'),
+        this.getAttribute('data-f')
+      );
+    });
+  });
+
+  $('btnAddFood').addEventListener('click', function () {
+    var name = $('foodNameInput').value.trim();
+    var cal = parseFloat($('foodCalInput').value);
+    var p = parseFloat($('foodPInput').value) || 0;
+    var c = parseFloat($('foodCInput').value) || 0;
+    var f = parseFloat($('foodFInput').value) || 0;
+    addFoodItem(name, cal, p, c, f);
+    $('foodNameInput').value = '';
+    $('foodCalInput').value = '';
+    $('foodPInput').value = '';
+    $('foodCInput').value = '';
+    $('foodFInput').value = '';
+  });
+
+  $('btnClearLog').addEventListener('click', function () {
+    if (foodLog.length === 0) return;
+    foodLog = [];
+    saveLog();
+    showToast('Daily food log cleared');
+  });
+
+  $('btnCopyPlan').addEventListener('click', function () {
+    var text = '🔥 Daily Calorie & Macro Target Plan:\n' +
+      '• Daily Intake: ' + lastCalc.targetCal + ' kcal\n' +
+      '• Maintenance TDEE: ' + lastCalc.tdee + ' kcal (BMR: ' + lastCalc.bmr + ' kcal)\n' +
+      '• Strategy: ' + lastCalc.presetName + '\n' +
+      '• Protein: ' + lastCalc.gramsP + 'g (' + lastCalc.pctP + '%)\n' +
+      '• Carbohydrates: ' + lastCalc.gramsC + 'g (' + lastCalc.pctC + '%)\n' +
+      '• Dietary Fat: ' + lastCalc.gramsF + 'g (' + lastCalc.pctF + '%)\n\n' +
+      'Calculated via ' + TOOL_NAME + ': ' + SITE + '/';
+
+    if (navigator.clipboard && window.isSecureContext) {
+      navigator.clipboard.writeText(text).then(function () {
+        showToast('Plan copied to clipboard!');
+      });
+    } else {
+      showToast('Could not copy automatically.');
+    }
+  });
+
+  $('btnSharePlan').addEventListener('click', function () {
+    var shareMsg = '🔥 Free Daily Calorie & Macro Calculator\n👉 ' + TOOL_NAME + ': ' + SITE + '/';
+    if (navigator.share) {
+      navigator.share({ title: TOOL_NAME, text: shareMsg, url: SITE + '/' }).catch(function (e) {
+        if (!e || e.name !== 'AbortError') showToast('Link ready to share!');
+      });
+    } else {
+      showToast('Calculator URL: ' + SITE + '/');
+    }
+  });
+
+  calculate();
+  loadLog();
+})();
+</script>
+<!-- LOGIC END -->
 </body>
 </html>
