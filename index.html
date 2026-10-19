@@ -171,6 +171,22 @@ input[type=text],input[type=number],select{width:100%;font:inherit;font-size:1re
   .ad-bottom { min-height: 280px !important; }
   .ad-bottom ins { min-height: 280px !important; }
 </style>
+<style id="global-quality-shield">
+  html, body {
+    max-width: 100%;
+    overflow-x: hidden;
+    word-break: keep-all;
+    overflow-wrap: break-word;
+  }
+  .ad-bottom, .ad-bottom ins {
+    min-height: 280px !important;
+    background: transparent !important;
+  }
+  :focus-visible {
+    outline: 2px solid #2563eb !important;
+    outline-offset: 2px !important;
+  }
+</style>
 </head>
 <body>
 <header class="header">
@@ -206,7 +222,7 @@ input[type=text],input[type=number],select{width:100%;font:inherit;font-size:1re
       <div class="row">
         <div>
           <label class="lbl" for="ageInput">Age (years)</label>
-          <input type="number" id="ageInput" min="15" max="100" value="30">
+          <input type="number" id="ageInput" min="15" max="100" value="30" inputmode="numeric">
         </div>
       </div>
 
@@ -214,17 +230,17 @@ input[type=text],input[type=number],select{width:100%;font:inherit;font-size:1re
       <div id="impHeightRow" class="row">
         <div>
           <label class="lbl" for="heightFt">Height (Feet)</label>
-          <input type="number" id="heightFt" min="3" max="7" value="5">
+          <input type="number" id="heightFt" min="3" max="7" value="5" inputmode="numeric">
         </div>
         <div>
           <label class="lbl" for="heightIn">Height (Inches)</label>
-          <input type="number" id="heightIn" min="0" max="11" value="10">
+          <input type="number" id="heightIn" min="0" max="11" value="10" inputmode="numeric">
         </div>
       </div>
       <div id="metHeightRow" class="row" style="display:none">
         <div>
           <label class="lbl" for="heightCm">Height (Centimeters)</label>
-          <input type="number" id="heightCm" min="100" max="230" value="178">
+          <input type="number" id="heightCm" min="100" max="230" value="178" inputmode="numeric">
         </div>
       </div>
 
@@ -232,13 +248,13 @@ input[type=text],input[type=number],select{width:100%;font:inherit;font-size:1re
       <div id="impWeightRow" class="row">
         <div>
           <label class="lbl" for="weightLbs">Weight (Pounds)</label>
-          <input type="number" id="weightLbs" min="60" max="500" value="165" step="0.5">
+          <input type="number" id="weightLbs" min="60" max="500" value="165" step="0.5" inputmode="numeric">
         </div>
       </div>
       <div id="metWeightRow" class="row" style="display:none">
         <div>
           <label class="lbl" for="weightKg">Weight (Kilograms)</label>
-          <input type="number" id="weightKg" min="30" max="250" value="75" step="0.5">
+          <input type="number" id="weightKg" min="30" max="250" value="75" step="0.5" inputmode="numeric">
         </div>
       </div>
 
@@ -368,18 +384,18 @@ input[type=text],input[type=number],select{width:100%;font:inherit;font-size:1re
             <input type="text" id="foodNameInput" placeholder="Custom food or item name">
           </div>
           <div>
-            <input type="number" id="foodCalInput" placeholder="Calories" min="0">
+            <input type="number" id="foodCalInput" placeholder="Calories" min="0" inputmode="numeric">
           </div>
         </div>
         <div class="row" style="margin-top:6px">
           <div>
-            <input type="number" id="foodPInput" placeholder="Protein (g)" min="0">
+            <input type="number" id="foodPInput" placeholder="Protein (g)" min="0" inputmode="numeric">
           </div>
           <div>
-            <input type="number" id="foodCInput" placeholder="Carbs (g)" min="0">
+            <input type="number" id="foodCInput" placeholder="Carbs (g)" min="0" inputmode="numeric">
           </div>
           <div>
-            <input type="number" id="foodFInput" placeholder="Fat (g)" min="0">
+            <input type="number" id="foodFInput" placeholder="Fat (g)" min="0" inputmode="numeric">
           </div>
           <div style="flex:0 0 auto">
             <button type="button" id="btnAddFood" class="btn primary sm" style="height:38px">+ Add</button>
